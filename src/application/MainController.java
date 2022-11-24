@@ -15,9 +15,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -35,7 +40,51 @@ public class MainController {
     @FXML
 	private PieChart pieChart1;
     
+    @FXML
+    private BarChart<String, Number> barChart1;
+    
+    @FXML
+    private ChoiceBox<String> chartBox;
+
+    @FXML
+    private ChoiceBox<String> featureBox;
+    
+    @FXML
+    private ChoiceBox<String> featureBox2;
+    
+    @FXML
+    private Button btnPieChart;
+    
+    @FXML
+    private TextField txt1Field;
+    
+    ObservableList<String> featureList = FXCollections.observableArrayList();
+    
+    private String[] headers;
+    
+    XYChart.Series barChartData = new XYChart.Series();
+    
+    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    
+   
+    public static String[] readHeader(String p) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new FileReader(p));
+    	
+    	String line = "";
+    	line = br.readLine();
+    	
+		String[] headers = line.split(",");
+    	
+    	return headers;
+    }
+    
+    
     public void button1Action() throws IOException {
+    	
+    	featureList.removeAll(featureList);
+    	listview.getItems().clear();
+    	
     	FileChooser fc = new FileChooser();
     	
     	fc.getExtensionFilters().addAll(new ExtensionFilter("CSV Files", "*.csv"));
@@ -43,118 +92,177 @@ public class MainController {
     	File selectedFile = fc.showOpenDialog(null);
     	
     	String path = selectedFile.getAbsolutePath();
+    	System.out.println(path);
+    	String[] headers = readHeader(path);
     	
-    	BufferedReader br = new BufferedReader(new FileReader(path));
+		for (int i = 0; i < headers.length; i++) {
+			listview.getItems().add(headers[i]);
+			featureList.add(headers[i]);
+		}    		
+      	
+    	featureBox.setItems(featureList);
+    	featureBox2.setItems(featureList);
     	
-    	String line = "";
-    	line = br.readLine();
+    	txt1Field.setText(path);
     	
-		String[] headers = line.split(",");
-		
-		
-    	
-    	if(selectedFile != null) {
-    		for (int i = 0; i < headers.length; i++) {
-    			listview.getItems().add(headers[i]);
-    		}    		
-    	}else {
-    		System.out.println("Fiel is not valid");
-    	}
     }
     
-//    public void button2Action() {
-//    	FileChooser fc = new FileChooser();
-//    	
-//    	fc.getExtensionFilters().addAll(new ExtensionFilter("CSV Files", "*.csv"));
-//    	
-//    	List<File> selectedFiles = fc.showOpenMultipleDialog(null);
-//    	
-//    	
-//    	if(selectedFiles != null) {
-//    		for(int i =0; i < selectedFiles.size(); i++) {
-//    			listview.getItems().add(selectedFiles.get(i).getName());
-//    		}
-//    		
-//    		
-//    	}else {
-//    		System.out.println("Fiel is not valid");
-//    	}
-//    	
-//    }
     
-	 
-	
-	public void pieChartview() {
+    
+ 	public void showPieChart() {
 		
-	
-		String path = "D:\\Milad\\Northeastern Uni\\Courses\\Intro data mining and machine learning\\HWs\\Practicum 2\\heart.csv";
-		String line = "";
-		//ArrayList to store the values
-		ArrayList<String> chestPainType = new ArrayList<String>();
-		String line2 = "";
-		ArrayList<String> chestPainTypeNotRepeart = new ArrayList<String>();
-		ArrayList<Integer> countList = new ArrayList<Integer>();
-		
-		ArrayList<String> headerName = new ArrayList<String>();
+ 		ArrayList<String> rowList = new ArrayList<>();
+ 		ArrayList<String> categoryList = new ArrayList<>();
+ 		ArrayList<Integer> countList = new ArrayList<>();
+ 		
+ 		rowList.clear();
+ 		categoryList.clear();
+ 		countList.clear();
+ 		
+ 		pieChart1.getData().removeAll(pieChartData);
+ 		pieChartData.removeAll(pieChartData);
+ 		
 		try {
 			//opening the file
-			BufferedReader br = new BufferedReader(new FileReader(path));
-			
-			line = br.readLine();
+			BufferedReader br = new BufferedReader(new FileReader(txt1Field.getText()));
+					
+			String line = br.readLine();
 			String[] headers = line.split(",");
 			
-			for (int i = 0; i < headers.length; i++) {
-				System.out.println(i + " " + headers[i]);
-			}
-			System.out.println("Number of columns is " + headers.length);
-						
+									
 			//reading all the values
-			while((line = br.readLine()) != null) {
-				String[] values = line.split(",");
-				chestPainType.add(values[2]);
-			}
-			chestPainTypeNotRepeart.add(chestPainType.get(0));
-			//System.out.println(chestPainType.size());
 			
-			for (int m = 1; m < chestPainType.size(); m++) {
+			for (int i = 0; i < headers.length; i++) {
+				if (featureBox.getValue().equals(headers[i])) {
+					while((line = br.readLine()) != null) {
+						String[] values = line.split(",");
+						rowList.add(values[i]);
+					}
+				}
+			}
+			
+			
+			categoryList.add(rowList.get(0));
+			
+			for (int m = 1; m < rowList.size(); m++) {
 				
 				int times = 0;
-				for (int b = 0; b < chestPainTypeNotRepeart.size(); b++) {
+				for (int b = 0; b < categoryList.size(); b++) {
 										
-					if (!chestPainType.get(m).equals(chestPainTypeNotRepeart.get(b))) {
+					if (!rowList.get(m).equals(categoryList.get(b))) {
 						times++;
 							
 					}
 					
 				}
 				
-				if (times == chestPainTypeNotRepeart.size()) {
-					chestPainTypeNotRepeart.add(chestPainType.get(m));
+				if (times == categoryList.size()) {
+					categoryList.add(rowList.get(m));
 					
 				}
 			}
 			
-			for (int t = 0; t < chestPainTypeNotRepeart.size(); t++) {
-				System.out.println(chestPainTypeNotRepeart.get(t));
-			}
-			
-			
-			
-			for (int s = 0; s < chestPainTypeNotRepeart.size(); s++) {
+			for (int s = 0; s < categoryList.size(); s++) {
 				int count = 0;
-				for (int n = 0; n < chestPainType.size(); n++) {
-					if (chestPainType.get(n).equals(chestPainTypeNotRepeart.get(s))) {
+				for (int n = 0; n < rowList.size(); n++) {
+					if (rowList.get(n).equals(categoryList.get(s))) {
 						count++;
 						}
 				}
 				countList.add(count);
 			}
 			
-			for (int r = 0; r < countList.size(); r++) {
-				System.out.println(countList.get(r));
+	
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+       
+      
+       for (int i = 0; i < categoryList.size(); i++) {
+    	   pieChartData.add(new PieChart.Data(categoryList.get(i), countList.get(i)));
+       }
+       
+              
+       
+       if (pieChart1 != null) { 
+    	   pieChart1.getData().addAll(pieChartData);
+    	   pieChart1.setTitle(featureBox.getValue());
+       }else {
+    	   System.out.println("It is null!!!!!");
+       }
+
+       
+	}
+    
+    
+ 	public void showBarChart() {
+		
+ 		ArrayList<String> rowList = new ArrayList<>();
+ 		ArrayList<String> categoryList = new ArrayList<>();
+ 		ArrayList<Integer> countList = new ArrayList<>();
+ 		
+ 		rowList.clear();
+ 		categoryList.clear();
+ 		countList.clear();
+ 		
+ 		barChartData.getData().clear();
+ 		barChart1.getData().removeAll(barChartData);
+ 		
+		try {
+			//opening the file
+			BufferedReader br = new BufferedReader(new FileReader(txt1Field.getText()));
+					
+			String line = br.readLine();
+			String[] headers = line.split(",");
+			
+									
+			//reading all the values
+			
+			for (int i = 0; i < headers.length; i++) {
+				if (featureBox.getValue().equals(headers[i])) {
+					while((line = br.readLine()) != null) {
+						String[] values = line.split(",");
+						rowList.add(values[i]);
+					}
+				}
 			}
 			
 			
+			categoryList.add(rowList.get(0));
+			
+			for (int m = 1; m < rowList.size(); m++) {
+				
+				int times = 0;
+				for (int b = 0; b < categoryList.size(); b++) {
+										
+					if (!rowList.get(m).equals(categoryList.get(b))) {
+						times++;
+							
+					}
+					
+				}
+				
+				if (times == categoryList.size()) {
+					categoryList.add(rowList.get(m));
+					
+				}
+			}
+			
+			for (int s = 0; s < categoryList.size(); s++) {
+				int count = 0;
+				for (int n = 0; n < rowList.size(); n++) {
+					if (rowList.get(n).equals(categoryList.get(s))) {
+						count++;
+						}
+				}
+				countList.add(count);
+			}
+			
+	
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -162,24 +270,36 @@ public class MainController {
 			e.printStackTrace();
 		}
 		
-   	
-       
-
-       ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-       for (int i = 0; i < chestPainTypeNotRepeart.size(); i++) {
-       	pieChartData.add(new PieChart.Data(chestPainTypeNotRepeart.get(i), countList.get(i)));
+		
+		
+		
+       for (int i = 0; i < categoryList.size(); i++) {
+    	   barChartData.getData().add(new XYChart.Data(categoryList.get(i), countList.get(i)));
        }
        
- 
-       final PieChart chart = new PieChart(pieChartData);
-       chart.setTitle("Chest pain type");
+              
        
-       ((Group) scene.getRoot()).getChildren().add(chart);
+       if (barChart1 != null) {
+    	   
+    	   barChart1.getData().addAll(barChartData);
+    	   barChart1.setTitle(featureBox.getValue());
+       }else {
+    	   System.out.println("It is null!!!!!");
+       }
+
        
 	}
-    
-    
-    
+ 	
+ 	public void buttonClear() {
+ 		barChartData.getData().clear();
+ 		barChart1.getData().removeAll(barChartData);
+ 		barChart1.setTitle("");
+ 		
+ 		
+ 		pieChart1.getData().removeAll(pieChartData);
+ 		pieChartData.removeAll(pieChartData);
+ 		pieChart1.setTitle("");
+ 	}
     
 
 }
