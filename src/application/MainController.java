@@ -348,10 +348,7 @@ public class MainController {
 			}			
 		}
 		
-
         scatterChart.getData().add(series1);
-        scatterChart.setTitle("Test");
-		
 	}
  	
  	public void buttonClear() {
