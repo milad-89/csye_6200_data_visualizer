@@ -281,7 +281,7 @@ public class MainController {
 		
 		
        for (int i = 0; i < categoryList.size(); i++) {
-    	   barChartData.getData().add(new XYChart.Data<String, Integer>(categoryList.get(i), countList.get(i)));
+    	   barChartData.getData().add(new XYChart.Data(categoryList.get(i), countList.get(i)));
        }
        
               
