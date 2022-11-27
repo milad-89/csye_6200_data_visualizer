@@ -1,26 +1,25 @@
 package application;
 
-import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.util.Random;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
+import javafx.scene.chart.Axis;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -58,6 +57,15 @@ public class MainController {
     @FXML
     private TextField txt1Field;
     
+    @FXML
+    private ScatterChart<?, ?> scatterChart;
+    
+    @FXML
+    private CategoryAxis xAxis;
+    
+    @FXML
+    private NumberAxis yAxis;
+    
     ObservableList<String> featureList = FXCollections.observableArrayList();
     
     private String[] headers;
@@ -92,7 +100,6 @@ public class MainController {
     	File selectedFile = fc.showOpenDialog(null);
     	
     	String path = selectedFile.getAbsolutePath();
-    	System.out.println(path);
     	String[] headers = readHeader(path);
     	
 		for (int i = 0; i < headers.length; i++) {
@@ -288,6 +295,60 @@ public class MainController {
        }
 
        
+	}
+ 	
+ 	public void showScatterPlot() throws IOException {
+ 		
+        XYChart.Series series1 = new XYChart.Series();
+
+        scatterChart.setAnimated(false);
+        scatterChart.getData().clear();
+
+		String dropDownXValString = featureBox.getValue();
+		String dropDownYValString = featureBox2.getValue();
+				
+	    xAxis.setLabel(dropDownXValString);  
+	    yAxis.setLabel(dropDownYValString);
+	    
+	    BufferedReader br = new BufferedReader(new FileReader(txt1Field.getText()));
+		
+		String line = br.readLine();
+		String[] headers = line.split(",");
+		
+		// Read x col data
+		ArrayList<String> colXData = new ArrayList<>();
+		for (int i = 0; i < headers.length; i++) {
+			if (dropDownXValString.equals(headers[i])) {
+				while((line = br.readLine()) != null) {
+					String[] values = line.split(",");
+					colXData.add(values[i]);
+				}
+			}
+		}
+
+		// Read Y col data
+		BufferedReader br2 = new BufferedReader(new FileReader(txt1Field.getText()));
+		ArrayList<String> colYData = new ArrayList<>();
+		for (int i = 0; i < headers.length; i++) {
+			if (dropDownYValString.equals(headers[i])) {
+				while((line = br2.readLine()) != null) {
+					String[] values = line.split(",");
+					colYData.add(values[i]);
+				}
+			}
+		}
+
+		for(int i=0; i < colXData.size(); i++) {
+			try {
+				Double colYval = Double.parseDouble(colYData.get(i));
+				series1.getData().add(new XYChart.Data(colXData.get(i), colYval));
+			}
+			catch (Exception e) {
+				System.out.println("Error converting the string to double");
+			}			
+		}
+		
+        scatterChart.getData().add(series1);
 	}
  	
  	public void buttonClear() {
