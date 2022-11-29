@@ -9,9 +9,9 @@
    <children>
       <AnchorPane layoutX="38.0" layoutY="91.0">
          <children>
-            <ImageView fitHeight="309.0" fitWidth="777.0" layoutX="25.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="395.0" fitWidth="463.0" layoutX="25.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/datatograph.png" />
+                  <Image url="@../images/data-solutions.png" />
                </image>
             </ImageView>
          </children>
