@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="600.0" minWidth="1000.0" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainPageController">
+   <children>
+      <AnchorPane layoutX="38.0" layoutY="91.0">
+         <children>
+            <ImageView fitHeight="330.0" fitWidth="425.0" layoutX="25.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/ds3d.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button layoutX="688.0" layoutY="452.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="54.0" prefWidth="114.0" text="Get Started" />
+   </children>
+</AnchorPane>

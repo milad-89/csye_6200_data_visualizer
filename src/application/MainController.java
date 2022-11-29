@@ -6,12 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.Axis;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -65,7 +62,7 @@ public class MainController {
     
     @FXML
     private NumberAxis yAxis;
-    
+        
     ObservableList<String> featureList = FXCollections.observableArrayList();
     
     private String[] headers;

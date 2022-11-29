@@ -16,28 +16,36 @@ import javafx.scene.control.TextField;
 
 public class Main extends Application {
 	private static Stage primaryStage;
-	private static BorderPane mainLayout;
+	private static AnchorPane mainLayout1;
+	private static BorderPane mainLayout2;
 	
 	
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Data Visualizer App");
-		showMainView();
+		showStartPage();
 	}
 	
-	private void showMainView() throws IOException {
+	private void showStartPage() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("startPage.fxml"));
+		mainLayout1 = loader.load();
+		Scene scene = new Scene(mainLayout1);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	
+	public static void showMainView() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("Main.fxml"));
-		mainLayout = loader.load();
-		Scene scene = new Scene(mainLayout);
+		mainLayout2 = loader.load();
+		Scene scene = new Scene(mainLayout2);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
 	}
-	
 
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
