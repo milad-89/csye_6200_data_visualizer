@@ -5,7 +5,6 @@ Team Details:
 2. Rohan Mishra
 3. Milad Tahmasebi
 
-## Demo
+## Application Demo
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=KaC8bXXCvW4&ab_channel=NagaVenkateshGavini" frameborder="0" allowfullscreen></iframe>
-
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/KaC8bXXCvW4/0.jpg)](https://www.youtube.com/watch?v=KaC8bXXCvW4&t=1s&ab_channel=NagaVenkateshGavini "Data Visualizer")
