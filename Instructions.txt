@@ -1,0 +1,26 @@
+Step1:
+	Set the configurations to run the JavaFX application	
+		a.) Click "Run as Configurations", Add the following string in the Arguments(X) 
+			--add-modules javafx.controls,javafx.fxml
+		b.) Include the JavaFX package, by clicking the properties and module path
+		
+
+Step2:
+	Once the application is loaded
+		a.) Click on "Get Started" button
+		b.) Core application page will be loaded
+		
+Step3:
+	Once the main page loads,
+		a.) Select the file by clicking the "Select File" button
+		b.) Once the file is selected, choose X variable to see the following plots
+			i.) Line Chart
+			ii.) Pie Chart
+			iii.) Bar Chart
+			
+		c.) Choose X and Y variable to see the relationship between X and Y with the help
+			of Scatter Chart
+
+Step4:
+	If application is slow because of the load, click on the "Clear Screen" button, so it
+	will clear all the plots from the screen.

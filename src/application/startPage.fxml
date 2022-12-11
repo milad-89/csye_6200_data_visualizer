@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="600.0" minWidth="1000.0" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainPageController">
+<AnchorPane minHeight="600.0" minWidth="1000.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-border-color: #174724;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainPageController">
    <children>
-      <AnchorPane layoutX="38.0" layoutY="91.0">
-         <children>
-            <ImageView fitHeight="395.0" fitWidth="463.0" layoutX="25.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/data-solutions.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <Button layoutX="726.0" layoutY="273.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="54.0" prefWidth="114.0" text="Get Started" />
+      <AnchorPane layoutX="38.0" layoutY="91.0" />
+      <Button id="but" layoutX="649.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="45.0" prefWidth="142.0" stylesheets="@stylesheet.css" text="Get Started">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label layoutX="543.0" layoutY="195.0" prefHeight="64.0" prefWidth="387.0" text="Data Visualizer" textFill="#2aa5b8" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+         <font>
+            <Font name="Hiragino Sans W9" size="36.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="294.0" fitWidth="397.0" layoutX="124.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/pie_chart_stick_figure_runner_300_wht.gif" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
