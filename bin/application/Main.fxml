@@ -23,7 +23,7 @@
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="150.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="326.0" layoutY="27.0" prefHeight="147.0" prefWidth="349.0" text="Data Visualizer" textAlignment="CENTER">
+            <Label layoutX="326.0" layoutY="27.0" prefHeight="147.0" prefWidth="349.0" text="Data Visualizer" textAlignment="CENTER" textFill="#2e8fa4">
                <font>
                   <Font name="Palace Script MT" size="89.0" />
                </font>
@@ -33,25 +33,28 @@
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btn1" layoutX="42.0" layoutY="98.0" mnemonicParsing="false" onAction="#button1Action" text="Select file" />
+            <Button id="yellow" fx:id="btn1" layoutX="14.0" layoutY="75.0" mnemonicParsing="false" onAction="#button1Action" prefHeight="43.0" prefWidth="144.0" stylesheets="@stylesheet.css" text="Select file" />
             <ListView fx:id="listview" layoutX="183.0" layoutY="25.0" prefHeight="313.0" prefWidth="123.0" />
-            <Label fx:id="label1" layoutX="28.0" layoutY="65.0" prefHeight="19.0" prefWidth="94.0" text="Slect a csv file!" textAlignment="CENTER">
+            <Label fx:id="label1" layoutX="39.0" layoutY="53.0" prefHeight="19.0" prefWidth="94.0" text="Slect a csv file!" textAlignment="CENTER">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="featureBox" layoutX="8.0" layoutY="156.0" prefHeight="25.0" prefWidth="150.0" />
+            <ChoiceBox id="glass" fx:id="featureBox" layoutX="8.0" layoutY="156.0" prefHeight="25.0" prefWidth="150.0" stylesheets="@stylesheet.css" />
             <Label layoutX="206.0" layoutY="6.0" text="List of Feature." textAlignment="CENTER" />
             <Label layoutX="20.0" layoutY="133.0" text="Choose first variable (x)" />
-            <Label layoutX="330.0" layoutY="35.0" text="Choose the type of Chart." textAlignment="CENTER" />
-            <Button fx:id="btnPieChart" layoutX="348.0" layoutY="111.0" mnemonicParsing="false" onAction="#showPieChart" prefWidth="100.0" text="Pie Chart" />
+            <Label layoutX="330.0" layoutY="35.0" text="Choose the type of Chart." textAlignment="CENTER" textFill="#275b58">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Button id="but" fx:id="btnPieChart" layoutX="348.0" layoutY="118.0" mnemonicParsing="false" onAction="#showPieChart" prefHeight="31.0" prefWidth="106.0" stylesheets="@stylesheet.css" text="Pie Chart" />
             <TextField fx:id="txt1Field" layoutX="5.0" layoutY="350.0" prefHeight="25.0" prefWidth="491.0" />
-            <Button layoutX="348.0" layoutY="72.0" mnemonicParsing="false" prefWidth="100.0" text="Line Chart" />
+            <Button id="but" layoutX="348.0" layoutY="69.0" mnemonicParsing="false" onAction="#showLineChart" prefHeight="31.0" prefWidth="102.0" stylesheets="@stylesheet.css" text="Line Chart" />
             <Label layoutX="11.0" layoutY="192.0" text="Choose second variable (Y)" />
-            <ChoiceBox fx:id="featureBox2" layoutX="8.0" layoutY="219.0" prefWidth="150.0" />
-            <Button fx:id="btnBarChart" layoutX="348.0" layoutY="156.0" mnemonicParsing="false" onAction="#showBarChart" prefWidth="100.0" text="Bar Chart" />
-            <Button fx:id="scatterChartBtnButton" layoutX="348.0" layoutY="197.0" mnemonicParsing="false" onAction="#showScatterPlot" prefWidth="100.0" text="Scatter Chart" />
-            <Button fx:id="btnClear" layoutX="348.0" layoutY="258.0" mnemonicParsing="false" onAction="#buttonClear" prefWidth="100.0" text="Clear Screen" />
+            <ChoiceBox id="glass" fx:id="featureBox2" layoutX="8.0" layoutY="219.0" prefWidth="150.0" stylesheets="@stylesheet.css" />
+            <Button id="but" fx:id="btnBarChart" layoutX="348.0" layoutY="166.0" mnemonicParsing="false" onAction="#showBarChart" prefHeight="31.0" prefWidth="106.0" stylesheets="@stylesheet.css" text="Bar Chart" />
+            <Button id="but" fx:id="scatterChartBtnButton" layoutX="348.0" layoutY="217.0" mnemonicParsing="false" onAction="#showScatterPlot" prefHeight="31.0" prefWidth="108.0" stylesheets="@stylesheet.css" text="Scatter Chart" />
+            <Button id="but" fx:id="btnClear" layoutX="348.0" layoutY="293.0" mnemonicParsing="false" onAction="#buttonClear" prefHeight="31.0" prefWidth="109.0" stylesheets="@stylesheet.css" text="Clear Screen" />
          </children>
       </AnchorPane>
    </left>
@@ -62,7 +65,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <LineChart layoutX="-14.0" layoutY="-29.0" prefHeight="371.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <LineChart fx:id="lineChart" layoutX="-14.0" layoutY="-29.0" prefHeight="371.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
